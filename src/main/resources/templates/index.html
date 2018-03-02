@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Jagornet-WEB</title>
+    <link rel="stylesheet" type="text/css" th:href = "@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <h1>Jagornet-WEB</h1>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Jagornet</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/Jargornet-redis/getDhcpServerConfig">ServerConfig</a></li>
+                    <li><a href="/Jargornet-redis/getDhcpTables">DHCPTable</a></li>
+                    <li><a href="/Jargornet-redis/getFreeList">Pool</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <pre th:text = "${config}">
+    </pre>
+    <h3>更换文件后，将清空数据库...</h3>
+    <form method="POST" enctype="multipart/form-data" action="/Jargornet-redis/upload">
+        <p>
+            文件：<input type="file" name="file" />
+        </p>
+        <p>
+            <input type="submit" value="上传" />
+        </p>
+    </form>
+</body>
+<script th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!--<script>-->
+    <!--function upload() {-->
+        <!--var form = $(".form-inline")[0];-->
+        <!--var data = new FormData(form);-->
+        <!--alert(data);-->
+        <!--$.ajax({-->
+            <!--type:"post",-->
+            <!--enctype: 'multipart/form-data',-->
+            <!--url: "/redis/upload",-->
+            <!--data: data,-->
+            <!--cache: false,-->
+            <!--timeout: 600000,-->
+            <!--success:function (data) {-->
+                <!--alert(data);-->
+            <!--}-->
+        <!--});-->
+    <!--}-->
+<!--</script>-->
+</html>

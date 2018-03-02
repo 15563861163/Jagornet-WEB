@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Jagornet-WEB</title>
+    <link rel="stylesheet" type="text/css" th:href = "@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <h1>Jagornet-WEB</h1>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Jagornet</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/Jargornet-redis/getDhcpServerConfig">ServerConfig</a></li>
+                    <li><a href="/Jargornet-redis/getDhcpTables">DHCPTable</a></li>
+                    <li class="active"><a href="/Jargornet-redis/getFreeList">Pool</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <table class="table table-striped">
+        <h3>在redis中现有的Pools</h3>
+        <thead>
+        <tr>
+            <th>   </th>
+            <th>left</th>
+            <th>right</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "fl : ${freelists}">
+            <td>Pool</td>
+            <td th:text = "${fl.key}"></td>
+            <td th:text = "${fl.value}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

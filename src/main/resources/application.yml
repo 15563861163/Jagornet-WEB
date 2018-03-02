@@ -1,0 +1,16 @@
+#redis数据库连接配置
+spring:
+  redis:
+    host: localhost
+    port: 9180
+    pool:
+      max-idle: 8
+    timeout: 0
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+admin.name : root
+server:
+  port: 8081

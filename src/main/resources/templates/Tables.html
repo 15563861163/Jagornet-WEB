@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Jagornet-WEB</title>
+    <link rel="stylesheet" type="text/css" th:href = "@{/css/bootstrap.min.css}"/>
+</head>
+<body ms-controller="viewmodel">
+    <h1>Jagornet-WEB</h1>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Jagornet</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/Jargornet-redis/getDhcpServerConfig">ServerConfig</a></li>
+                    <li class="active"><a href="/Jargornet-redis/getDhcpTables">DHCPTable</a></li>
+                    <li><a href="/Jargornet-redis/getFreeList">Pool</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td class="active">Ipaddress</td>
+            <td class="success">Duid</td>
+            <td class="warning">Iatype</td>
+            <td class="danger">Iaid</td>
+            <td class="info">Prefixlen</td>
+            <td class="active">State</td>
+            <td class="success">Starttime</td>
+            <td class="warning">PreferredEndTime</td>
+            <td class="danger">Validendtime</td>
+            <td class="info">Clear</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each ="el : ${dhcpTables}">
+            <td th:text = "${el.ipaddress}">${el.value}</td>
+            <td th:text = "${el.duid}">{{}}</td>
+            <td th:text = "${el.iatype}">{{}}</td>
+            <td th:text = "${el.iaid}">{{}}</td>
+            <td th:text = "${el.prefixlen}">{{}}</td>
+            <td th:text = "${el.state}">{{}}</td>
+            <td th:text = "${el.starttime}">{{}}</td>
+            <td th:text = "${el.preferredEndTime}">{{}}</td>
+            <td th:text = "${el.validendtime}">{{}}</td>
+            <td>
+                <button type="button" class="btn btn-default" style="margin: 10px;" th:onclick="'javascript:delTable(\''+${el.ipaddress}+'\')'">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+<script th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:inline="javascript">
+    function delTable(ip) {
+        alert(ip);
+        $.ajax({
+            type:"post",
+            url:"/Jargornet-redis/delDHCPTable",      //请求数据的访问路径
+            data:{ipaddress:ip},
+            success: function (data) {
+    //            $('button').removeClass("btn-primary").addClass("btn-success").attr('disabled',true);
+                window.parent.location.reload();
+            }
+        });
+    }
+</script>
+</html>
