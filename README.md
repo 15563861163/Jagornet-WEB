@@ -12,28 +12,7 @@ localhost:8081/Jargornet-redis
 
   上传xml文件，将文件序列化后将其保存在redis中，获取的时候再将其反序列化。
   
-  public String getServerConfigFromRedis() {
-        byte[] serverConfig = redisService.getStringDate(SERVERCONFIG_STRING.getBytes());
-        if (serverConfig == null || !(serverConfig.length > 0)) {
-            //1.将文件读到redis中 DHCPSERVERCONFIG_TABLE_TEST
-            //2.将标准文件读入
-            try {
-                DhcpServerConfig config = parseConfig("src/main/resources/static/dhcpserver-basic.xml");
-                serverConfig = serialize(config);
-                redisService.setStringDate(SERVERCONFIG_STRING.getBytes(),serialize(config));
-            } catch (IOException | XmlException e) {
-                System.out.println("file is error.路径问题（标准格式：src/main/resources/static/***.xml）或者是文件格式不符合");
-                logger.debug(e.getMessage());
-            }
-        }
-        Object objs = unserizlize(serverConfig);
-        DhcpServerConfig dhcpServerConfig = null;
-        if(objs instanceof DhcpServerConfig){
-            dhcpServerConfig = (DhcpServerConfig)objs;
-        }
-        return dhcpServerConfig.toString();
-    }
-    
+ 
     public String setDhcpServerConfig(@RequestParam(value = "xml") String xml) {
         DhcpServerConfig config = null;
         byte[] byt = xml.getBytes();
@@ -56,6 +35,29 @@ localhost:8081/Jargornet-redis
         }
         return "redirect:/getDhcpServerConfig";
     }
+    
+      private String getServerConfigFromRedis() {
+        byte[] serverConfig = redisService.getStringDate(SERVERCONFIG_STRING.getBytes());
+        if (serverConfig == null || !(serverConfig.length > 0)) {
+            //1.将文件读到redis中 DHCPSERVERCONFIG_TABLE_TEST
+            //2.将标准文件读入
+            try {
+                DhcpServerConfig config = parseConfig("src/main/resources/static/dhcpserver-basic.xml");
+                serverConfig = serialize(config);
+                redisService.setStringDate(SERVERCONFIG_STRING.getBytes(),serialize(config));
+            } catch (IOException | XmlException e) {
+                System.out.println("file is error.路径问题（标准格式：src/main/resources/static/***.xml）或者是文件格式不符合");
+                logger.debug(e.getMessage());
+            }
+        }
+        Object objs = unserizlize(serverConfig);
+        DhcpServerConfig dhcpServerConfig = null;
+        if(objs instanceof DhcpServerConfig){
+            dhcpServerConfig = (DhcpServerConfig)objs;
+        }
+        return dhcpServerConfig.toString();
+    }
+    
     两个必备包：xbean-2.5.jar   xmltypes.jar
     
  3.DHCPTables 显示已经分配出去的ip信息，备用手动删除功能。
