@@ -57,6 +57,42 @@ localhost:8081/Jargornet-redis
         }
         return dhcpServerConfig.toString();
     }
+        /** redis保存数据方法之一
+     * 序列化对象
+     * @return byte[]
+     * @param obj*/
+    private byte [] serialize(Object obj){
+        ObjectOutputStream obi=null;
+        ByteArrayOutputStream bai=null;
+        try {
+            bai=new ByteArrayOutputStream();
+            obi=new ObjectOutputStream(bai);
+            obi.writeObject(obj);
+            byte[] byt=bai.toByteArray();
+            return byt;
+        } catch (IOException e) {
+            logger.debug("xml object serialize is fail.");
+        }
+        return null;
+    }
+    /**
+     * 反序列化，将redis中保存的东西解出来
+     * @param byt
+     * @return obj
+     * */
+    private Object unserizlize(byte[] byt){
+        ObjectInputStream oii=null;
+        ByteArrayInputStream bis=null;
+        bis=new ByteArrayInputStream(byt);
+        try {
+            oii=new ObjectInputStream(bis);
+            Object obj=oii.readObject();
+            return obj;
+        } catch (Exception e) {
+            logger.error("Object unserizlize error : " + e.getMessage());
+        }
+        return null;
+    }
     
     两个必备包：xbean-2.5.jar   xmltypes.jar
     
