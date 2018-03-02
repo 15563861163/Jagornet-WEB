@@ -12,7 +12,7 @@ localhost:8081/Jargornet-redis
 
   上传xml文件，将文件序列化后将其保存在redis中，获取的时候再将其反序列化。
   
-  private String getServerConfigFromRedis() {
+  public String getServerConfigFromRedis() {
         byte[] serverConfig = redisService.getStringDate(SERVERCONFIG_STRING.getBytes());
         if (serverConfig == null || !(serverConfig.length > 0)) {
             //1.将文件读到redis中 DHCPSERVERCONFIG_TABLE_TEST
