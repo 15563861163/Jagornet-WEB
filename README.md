@@ -3,8 +3,8 @@
 
 localhost:8081/Jargornet-redis
 
-1.登录 默认登录码为root 登录端口为8081    在src/main/resources/application.yml中保存修改
-2.显示服务器配置文件 服务器配置文件以jagronet文档中xml格式为标准。上传更改后将清除redis相关信息，包括已分配出去的ip信息，正在使用的地址池信息
+* 1.登录 默认登录码为root 登录端口为8081    在src/main/resources/application.yml中保存修改
+* 2.显示服务器配置文件 服务器配置文件以jagronet文档中xml格式为标准。上传更改后将清除redis相关信息，包括已分配出去的ip信息，正在使用的地址池信息
 # Documentation
 [Jagornet DHCP Server Community Edition v2.0.5 User Guide](http://www.jagornet.com/products/dhcp-server/docs)
 # Downloads
@@ -96,6 +96,6 @@ localhost:8081/Jargornet-redis
     
     两个必备包：xbean-2.5.jar   xmltypes.jar
     
- 3.DHCPTables 显示已经分配出去的ip信息，备用手动删除功能。
- 4.DHCPPool 显示正在使用分配的地址池
+*  3.DHCPTables 显示已经分配出去的ip信息，备用手动删除功能。
+*  4.DHCPPool 显示正在使用分配的地址池
  
